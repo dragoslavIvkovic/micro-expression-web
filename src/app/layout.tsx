@@ -1,115 +1,124 @@
-import type { ReactNode } from 'react';
-
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
-import Script from 'next/script';
-
-import '@/app/globals.css';
-
+import './globals.css';
 import NavigationBar from './components/NavigationBar';
 import ScrollToTop from './components/ScrollToTop';
 
-const poppins = Poppins({ 
+const poppins = Poppins({
     subsets: ['latin'],
-    weight: ['400', '500', '600', '700']
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
-    title: 'Micro Facial Expressions Training App for iOS | MicroMind Reader',
-    description:
-        'Train your ability to recognize micro facial expressions with short, focused exercises. Improve emotional awareness and perception using a modern iOS training app.',
     metadataBase: new URL('https://microfacialexpressions.app'),
+    title: {
+        default: 'Micro Facial Expressions Training App | MicroMind Reader',
+        template: '%s | MicroMind Reader',
+    },
+    description:
+        'Train your ability to recognize micro facial expressions with short, focused exercises. Improve emotional awareness using a modern iOS training app.',
+    keywords: [
+        'micro facial expressions',
+        'micro expression training',
+        'facial expression recognition app',
+        'nonverbal communication',
+        'emotional awareness',
+        'body language',
+        'psychology training',
+        'iOS app',
+    ],
+    authors: [{ name: 'Dragoslav Ivkovic' }],
+    creator: 'microfacialexpressions.app',
+    publisher: 'microfacialexpressions.app',
+    alternates: {
+        canonical: 'https://microfacialexpressions.app/',
+    },
     openGraph: {
-        title: 'MicroMind Reader – Micro Expression Training App',
+        title: 'Micro Facial Expressions Training App | MicroMind Reader',
         description:
-            'Train your ability to recognize micro facial expressions with short, focused exercises. Improve emotional awareness and perception using a modern iOS training app.',
+            'Train perception and emotional awareness through micro-expression practice on iOS.',
         url: 'https://microfacialexpressions.app',
-        siteName: 'microfacialexpressions.app',
+        siteName: 'MicroMind Reader',
         images: [
             {
-                url: 'https://microfacialexpressions.app/images/slider/slide-01.webp',
-                width: 800,
-                height: 600
-            }
+                url: '/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'MicroMind Reader - Micro Facial Expressions Training App',
+            },
         ],
         locale: 'en_US',
-        type: 'website'
+        type: 'website',
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'MicroMind Reader – Micro Expression Training App',
+        title: 'Micro Facial Expressions Training App | MicroMind Reader',
         description:
-            'Train your ability to recognize micro facial expressions with short, focused exercises. Improve emotional awareness and perception using a modern iOS training app.',
-        images: ['https://microfacialexpressions.app/images/slider/slide-01.webp']
-    },
-    alternates: {
-        canonical: 'https://microfacialexpressions.app'
+            'Train perception and emotional awareness through micro-expression practice on iOS.',
+        images: ['/og-image.png'],
     },
     robots: {
         index: true,
         follow: true,
         googleBot: {
             index: true,
-            follow: true
-        }
-    }
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    icons: {
+        icon: '/favicon.ico',
+        apple: '/logo.png',
+    },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
         <html lang='en'>
             <head>
-                <meta name="p:domain_verify" content="157b1f4deed124fa6508549e0e363960"/>
-                <Script strategy='afterInteractive' src={`https://www.googletagmanager.com/gtag/js?id=G-9PGSFLM2FM`} />
-                <Script id='google-analytics' strategy='afterInteractive'>
-                    {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'G-9PGSFLM2FM', {
-                            send_page_view: false,
-                            transport_type: 'beacon',
-                        });
-                    `}
-                </Script>
-                <Script
-                    id='structured-data'
+                {/* Apple Smart App Banner */}
+                <meta name='apple-itunes-app' content='app-id=6756545872' />
+                {/* Structured Data */}
+                <script
                     type='application/ld+json'
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             '@context': 'https://schema.org',
-                            '@type': 'WebApplication',
+                            '@type': 'MobileApplication',
                             name: 'MicroMind Reader',
-                            description: 'Train your ability to recognize micro facial expressions with short, focused exercises. Improve emotional awareness and perception.',
+                            description:
+                                'Train your ability to recognize micro facial expressions with short, focused exercises.',
                             applicationCategory: 'EducationApplication',
                             operatingSystem: 'iOS',
-                            aggregateRating: {
-                                '@type': 'AggregateRating',
-                                ratingValue: '4.5',
-                                reviewCount: '1399'
-                            },
+                            url: 'https://microfacialexpressions.app',
                             offers: {
                                 '@type': 'Offer',
                                 price: '0',
-                                priceCurrency: 'USD'
+                                priceCurrency: 'USD',
                             },
-                            url: 'https://microfacialexpressions.app',
-                            image: 'https://microfacialexpressions.app/images/slider/slide-01.webp',
+                            aggregateRating: {
+                                '@type': 'AggregateRating',
+                                ratingValue: '4.8',
+                                ratingCount: '1399',
+                            },
                             publisher: {
                                 '@type': 'Organization',
                                 name: 'microfacialexpressions.app',
-                                logo: {
-                                    '@type': 'ImageObject',
-                                    url: 'https://microfacialexpressions.app/logo.svg'
-                                }
-                            }
-                        })
+                            },
+                        }),
                     }}
                 />
             </head>
             <body className={`min-h-screen bg-[#f5f6fa] ${poppins.className}`}>
                 <NavigationBar />
-                <div className='pt-16'>{children}</div>
+                <div className='pt-16 md:pt-20'>{children}</div>
                 <ScrollToTop />
             </body>
         </html>
