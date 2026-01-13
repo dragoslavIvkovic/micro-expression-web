@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import NavigationBar from './components/NavigationBar';
 import ScrollToTop from './components/ScrollToTop';
@@ -120,6 +121,7 @@ export default function RootLayout({
                 <NavigationBar />
                 <div className='pt-16 md:pt-20'>{children}</div>
                 <ScrollToTop />
+                <Analytics />
             </body>
         </html>
     );
